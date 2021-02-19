@@ -1,6 +1,9 @@
 # DiscordDestroyer
 The name speaks for itself.
+
+
 ![image of dd](https://cdn.clippy.gg/clippy/0dfc323b-a63f-496e-93e4-72f6db1dcd11/4da3498.png)
+
 
 ***
 
